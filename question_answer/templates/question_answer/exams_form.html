@@ -1,0 +1,19 @@
+{% extends "../core/base.html" %}
+{% block content %}
+<h2>{{ exam.title }}</h2>
+<form method="POST" >
+  {% csrf_token %}
+  {% for q in questions %}
+  <div class="question">
+    <p><strong>Q{{ forloop.counter }}: {{ q.text }}</strong></p>
+    {% for opt in q.options %}
+      <label>
+        <input type="radio" name="q{{ q.id }}" value="{{ opt.id }}">
+        {{ opt.text }}
+      </label><br>
+    {% endfor %}
+  </div>
+  {% endfor %}
+  <button type="submit" class="btn"><a href="/texams">Submit</a></button>
+</form>
+{% endblock %}

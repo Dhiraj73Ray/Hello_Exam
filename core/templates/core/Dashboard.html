@@ -1,0 +1,8 @@
+{% extends "core/base.html" %}
+{% block title %}Dashboard{% endblock title %}
+{% block content %}
+<div class="height-100 bg-light p-4">
+    <h3>Hello {{request.user}}</h3><h4>Welcome to ExamMate!</h4>
+    <p>Select a subject from the sidebar to begin practicing.</p>
+</div>
+{% endblock content %}

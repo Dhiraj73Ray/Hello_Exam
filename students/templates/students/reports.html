@@ -1,0 +1,66 @@
+{% extends "../core/base.html" %}
+{% load static %}
+
+{% block title %}Reports{% endblock title %}
+
+{% block extra_css %}
+<link href="{% static 'css/report.css' %}" rel="stylesheet" />
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container-fluid p-4">
+  <h3 class="mb-4">Student Reports</h3>
+
+  <!-- Summary Cards -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-3">
+      <div class="card shadow-sm text-center p-3">
+        <h6>Total Exams Taken</h6>
+        <h4 class="text-primary fw-bold">12</h4>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow-sm text-center p-3">
+        <h6>Average Score</h6>
+        <h4 class="text-success fw-bold">82%</h4>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow-sm text-center p-3">
+        <h6>Growth Rate</h6>
+        <h4 class="text-info fw-bold">+8.5%</h4>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow-sm text-center p-3">
+        <h6>Last Exam Score</h6>
+        <h4 class="text-danger fw-bold">76%</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart or Table Section -->
+  <div class="row">
+    <div class="col-md-8 mb-4">
+      <div class="card p-3 shadow-sm">
+        <h5 class="mb-3">Score Progress</h5>
+        <div style="height: 300px;" class="bg-light d-flex align-items-center justify-content-center text-muted">
+          [Chart Placeholder]
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card p-3 shadow-sm">
+        <h5 class="mb-3">Recent Activity</h5>
+        <ul class="list-group">
+          <li class="list-group-item">Completed Math Test - 76%</li>
+          <li class="list-group-item">Reviewed Chemistry Chapter 2</li>
+          <li class="list-group-item">Attempted Physics Quiz - 89%</li>
+          <li class="list-group-item">Viewed Statistics Page</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

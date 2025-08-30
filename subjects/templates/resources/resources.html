@@ -1,0 +1,105 @@
+{% extends "../core/base.html" %}
+{% load string_filters %}
+{% load static %}
+  {% block title %}Study Materials{% endblock title %}
+  {% block extra_css %}
+  {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" /> {% endcomment %}
+  <link href="{% static 'css/study_materials.css' %}" rel="stylesheet" />
+  {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" /> {% endcomment %}
+   <link rel="stylesheet" href="{% static 'css/resource.css' %}"> 
+   {% endblock extra_css %}
+  {% block extra_js %}
+    <script src="{% static 'js/resources.js' %}"></script>
+  {% endblock extra_js %}
+  {% block content %}
+  <div class="row">
+      
+      <!-- Sidebar -->
+      <aside class="col-md-3 bg-light border-end p-3">
+        <h5 class="mb-3">Folders</h5>
+        <ul class="list-group folder-list" id="folderList">
+          <!-- All Materials -->
+          <a href="{% url 'material' %}"><li class="list-group-item d-flex justify-content-between align-items-center {% if active_type == sub.id %}active{% endif %}" data-category="all">
+            <div>
+              <i class="bi bi-folder me-2"></i> All Materials
+            </div>
+          </li></a>
+        
+          <!-- Dynamic loop -->
+  {% for sub in subjects %}
+  <div class="position-relative">
+    <a href="{% url 'material' %}?subjects_type={{ sub.id }}" class="text-decoration-none">
+      <li class="list-group-item d-flex justify-content-between align-items-center {% if active_type == sub.id %}active{% endif %}">
+        <div>
+          <i class="bi bi-folder me-2"></i> {{ sub.name }}
+        </div>
+      </li>
+    </a>
+
+    <!-- Upload icon floating at right -->
+    <div class="doc-upload">
+      <form method="post" enctype="multipart/form-data" action="{% url 'upload_document' %}">
+        {% csrf_token %}
+        <input type="hidden" name="subjects_type" value="{{ sub.id }}">
+        <input type="file" name="file" id="file_{{ forloop.counter }}" style="display:none;" onchange="this.form.submit()">
+        <i class="bi bi-upload text-black" style="cursor:pointer;" onclick="document.getElementById('file_{{ forloop.counter }}').click();"></i>
+      </form>
+    </div>
+  </div>
+{% endfor %}
+        </ul>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="col-md-9 p-4 main-material">
+        <h4 class="mb-4">Study Materials</h4>
+        <!-- <div style="width:600px; height:400px; border:1px solid #ccc;">
+          <embed src="/media/docs/DSA_PATTERN_CHEATSHEET_2025.pdf" type="application/pdf" width="100%" height="100%" />
+        </div> -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          <!-- Item -->
+          {% for doc in documents %} 
+          <div class="col">
+            <div class="card file-card h-100">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <div>
+                  {% if ".pdf" in doc.file.url|lower %}
+  <i class="bi bi-file-earmark-pdf file-icon text-danger"></i>
+{% else %}
+  <i class="bi bi-file-earmark-text file-icon text-secondary"></i>
+{% endif %}
+                  <h6 class="card-title mt-2">
+              {{ doc.file.name|filename_only }}
+            </h6>
+
+            <!-- type + size -->
+            <p class="card-text text-muted small">
+              {{ doc.file.name|ext }} • 
+              {{ doc.file.size|filesizeformat }}
+            </p>
+                </div>
+                <div class="mt-2">
+                  <a href="{{ doc.file.url }}" class="btn btn-sm btn-outline-primary me-2" target="_blank"><i class="bi bi-eye"></i> View</a>
+                  <a href="{{ doc.file.url }}" class="btn btn-sm btn-outline-success" download><i class="bi bi-download"></i> Download</a>
+                  {% comment %} <button class="btn btn-sm btn-outline-danger" download><i class="bi bi-trash"></i> Delete</button> {% endcomment %}
+                  <form action="{% url 'delete_document' doc.id %}" method="post" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+      <p class="text-muted">No documents found.</p>
+    {% endfor %}
+          <!-- Duplicate or loop for more items -->
+          <!-- ... -->
+        </div>
+      </main>
+    </div>
+
+  {% endblock content %}
+

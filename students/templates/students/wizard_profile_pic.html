@@ -1,0 +1,11 @@
+<h2>Step 4: Profile Picture (Optional)</h2>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ wizard.management_form }}
+  {{ wizard.form.as_p }}
+
+  <div>
+    <button name="wizard_goto_step" value="{{ wizard.steps.prev }}">Back</button>
+    <button type="submit">Finish</button>
+  </div>
+</form>

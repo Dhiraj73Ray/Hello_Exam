@@ -1,0 +1,116 @@
+{% extends "../core/base.html" %} 
+{% load static %} 
+{% block title%}Subjects{%endblock title %} 
+{% block extra_css %} 
+<link rel="stylesheet" href="{% static 'css/subj.css' %}" /> 
+{% endblock extra_css %}
+{% block extra_js %} 
+<script src="{% static "js/enrolled_subjects.js" %}"></script> 
+{% endblock extra_js %}
+
+{% block content %}
+<div class="container mt-5">
+
+  <!-- Enrolled Subjects -->
+  <h4 class="mb-3 pt-3">Your Enrolled Subjects</h4>
+  <div class="row g-3 mb-5">
+    {% for subject in enrolled_subjects %}
+      <div class="col-md-3 col-sm-6">
+        <div class="card subject-card subject-card-{{ forloop.counter }}" onclick="toggleButton(this, event)">
+          <div class="card-body">
+            <h6 class="card-title">{{ subject.name }}</h6>
+            <span class="badge bg-secondary">{{ subject.stream }}</span>
+            <span class="badge bg-info">{{ subject.class_level }}</span>
+          </div>
+          <form method="POST" action="{% url 'subject_remove' subject.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="subject_id" value="{{ subject.id }}">
+            <button type="submit" class="card-btn">-</button>
+          </form>
+        </div>
+      </div>
+    {% empty %}
+      <p>No subjects enrolled yet.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Featured Subjects Carousel -->
+  <div class="d-flex justify-content-between align-items-center">
+    <h4 class="mt-4">🔥 Featured Subjects</h4>
+    <a href="{% url 'subject_all' %}" class="more-link">More...</a>
+  </div>
+  <div id="featuredCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      {% for subject in featured_subjects %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <div class="card subject-card text-center">
+            <div class="card-body">
+              <h6 class="card-title">{{ subject.name }}</h6>
+              <span class="badge bg-warning text-dark">Featured</span>
+              <div class="mt-2">
+                <span class="badge bg-secondary">{{ subject.stream }}</span>
+                <span class="badge bg-info">{{ subject.class_level }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="carousel-item active">
+          <p class="text-muted text-center">No featured subjects available.</p>
+        </div>
+      {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+
+  <!-- Recommended Subjects -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mt-4">Recommended for You</h4>
+    <a href="{% url 'subject_all' %}" class="more-link">More...</a>
+  </div>
+  
+  <div class="position-relative recommended-wrapper">
+    <!-- Navigation Buttons -->
+    <button class="btn-scroll scroll-left" onclick="scrollSubjects('recommendedRow', -300)">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    
+    <!-- Scrollable Row -->
+    <div id="recommendedRow" class="recommended-row">
+      {% for subject in recommended_subjects %}
+        <div class="card subject-card subject-card-{{ forloop.counter }}" onclick="toggleButton(this, event)">
+          <div class="card-body">
+            <h6 class="card-title">{{ subject.name }}</h6>
+            <span class="badge bg-info me-1">{{ subject.stream }}</span>
+            <span class="badge bg-success">{{ subject.class_level }}</span>
+          </div>
+          <form method="POST" action="{% url 'subject_enroll' %}">
+            {% csrf_token %}
+            <input type="hidden" name="subject_id" value="{{ subject.id }}">
+            <button type="submit" class="card-btn">+</button>
+          </form>
+        </div>
+      {% empty %}
+        <p class="p-3">No recommendations available.</p>
+      {% endfor %}
+    </div>
+    
+    <button class="btn-scroll scroll-right" onclick="scrollSubjects('recommendedRow', 300)">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+
+</div>
+
+<script>
+function scrollSubjects(containerId, amount) {
+  const container = document.getElementById(containerId);
+  container.scrollBy({ left: amount, behavior: 'smooth' });
+}
+</script>
+{% endblock content %}

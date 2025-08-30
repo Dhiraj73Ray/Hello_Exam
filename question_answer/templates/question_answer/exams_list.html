@@ -1,0 +1,20 @@
+{% extends "../core/base.html" %}
+{% block title %}Exams{% endblock %}
+{% block content %}
+<h1>Available Exams</h1>
+<div class="exam-list">
+  {% for exam in exams %}
+  <div class="exam-card">
+    <div>
+      <h3>{{ exam.title }}</h3>
+      <p><strong>Subject:</strong> {{ exam.subject }}</p>
+      <p><strong>Questions:</strong> {{ exam.question_count }}</p>
+      <p><strong>Duration:</strong> {{ exam.duration }} min</p>
+    </div>
+    <!-- <a href="{% url 'exam_form' exam.id %}" class="btn">Take Exam</a> -->
+  </div>
+  {% endfor %}
+</div>
+    <a href="{% url 'exam_form' %}" class="btn">Take Exam</a>
+
+{% endblock %}

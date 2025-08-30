@@ -1,0 +1,161 @@
+{% extends "../core/base.html" %}
+{% load static %}
+{% block title %}Student Profile{% endblock title %}
+<link rel="stylesheet" href="{% static 'css/prof.css' %}">
+<script src="{% static 'js/prof.js' %}"></script>
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+<div class="row">
+  <!-- Profile Picture -->
+<div class="col-xl-4">
+  <div class="card mb-4 mb-xl-0">
+    <div class="card-header">Profile Picture</div>
+    <div class="card-body text-center">
+
+      <!-- Current / Default Image -->
+      <img id="profilePreview"
+           class="img-account-profile rounded-circle mb-2"
+           src="{% if profile.profile_picture %}{{ profile.profile_picture.url }}{% else %}/static/images/avatar1.png{% endif %}"
+           alt="Profile Picture" width="150" height="150">
+
+      <!-- Hint -->
+      <div class="small font-italic text-muted mb-4">
+        JPG or PNG no larger than 5 MB
+      </div>
+
+      <!-- Hidden file input -->
+      <input type="file" id="fileInput" name="profile_picture" accept="image/*"
+             style="display:none;" onchange="previewImage(event)">
+
+      <script>
+        function previewImage(event) {
+          const file = event.target.files[0];
+          if(file){
+            const reader = new FileReader();
+            reader.onload = function(e){
+              document.getElementById('profilePreview').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+          }
+        }
+      </script>
+      <!-- Upload Button -->
+      <button class="btn btn-primary" type="button"
+              onclick="document.getElementById('fileInput').click()">
+        {% if profile.profile_picture %}Change Image{% else %}Upload New Image{% endif %}
+      </button>
+
+      <!-- Remove Button (optional) -->
+      {% if profile.profile_picture %}
+        <button class="btn btn-outline-danger mt-2" type="submit" name="remove_picture" value="1">
+          Remove Image
+        </button>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+
+  <!-- Account Details -->
+  <div class="col-xl-8">
+    <div class="card mb-4">
+      <div class="card-header">Account Details</div>
+      <div class="card-body">
+          <!-- Username -->
+          <div class="mb-3">
+            <label class="small mb-1">Username</label>
+            <input class="form-control" type="text" name="username" value="{{ profile.user.username }}" readonly>
+          </div>
+
+          <!-- Full Name -->
+          <div class="row gx-3 mb-3">
+            <div class="col-md-6">
+              <label class="small mb-1">First Name</label>
+              <input class="form-control" type="text" name="first_name" value="{{ profile.user.first_name }}">
+            </div>
+            <div class="col-md-6">
+              <label class="small mb-1">Last Name</label>
+              <input class="form-control" type="text" name="last_name" value="{{ profile.user.last_name }}">
+            </div>
+          </div>
+
+          <!-- Email + Phone -->
+          <div class="row gx-3 mb-3">
+            <div class="col-md-6">
+              <label class="small mb-1">Email</label>
+              <input class="form-control" type="email" name="email" value="{{ profile.user.email }}">
+            </div>
+            <div class="col-md-6">
+              <label class="small mb-1">Phone</label>
+              <input class="form-control" type="tel" name="phone" value="{{ profile.phone }}">
+            </div>
+          </div>
+
+          <!-- DOB + Gender -->
+          <div class="row gx-3 mb-3">
+            <div class="col-md-6">
+              <label class="small mb-1">Date of Birth</label>
+              <input class="form-control" type="date" name="dob" id="datepicker" value="{% if profile.dob %}{{ profile.dob|date:'Y-m-d' }}{% else %}{% endif %}">
+              <script>
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const day = String(today.getDate()).padStart(2, '0');
+                const formattedDate = `${year}-${month}-${day}`;
+
+                document.getElementById('datepicker').setAttribute('max', formattedDate);
+              </script>
+            </div>
+            <div class="col-md-6">
+              <label class="small mb-1">Gender</label>
+              <select class="form-control" name="gender">
+                <option value="M" {% if profile.gender == "M" %}selected{% endif %}>Male</option>
+                <option value="F" {% if profile.gender == "F" %}selected{% endif %}>Female</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Class + Stream -->
+          <div class="row gx-3 mb-3">
+            <div class="col-md-6">
+              <label class="small mb-1">Class</label>
+              <input class="form-control" type="text" name="class_level" value="{{ profile.class_level }}">
+            </div>
+            <div class="col-md-6">
+              <label class="small mb-1">Stream</label>
+              <input class="form-control" type="text" name="stream"
+                     value="{{ profile.stream }}">
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="mb-3">
+            <label class="small mb-1">Address</label>
+            <textarea class="form-control" name="address" rows="2">{{ profile.address }}</textarea>
+          </div>
+
+          
+
+          <!-- Enrolled Subjects -->
+          <!-- <div class="mb-3">
+            <label class="small mb-1">Enrolled Subjects</label>
+            <ul>11
+              {% for subject in profile.enrolled_subjects.all %}
+                <li>{{ subject.name }}</li>
+              {% empty %}
+                <li>No subjects enrolled</li>
+              {% endfor %}
+            </ul>
+          </div> -->
+
+          <!-- Save Button -->
+          <button class="btn btn-primary" type="submit">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
