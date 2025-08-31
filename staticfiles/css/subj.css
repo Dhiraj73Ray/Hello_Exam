@@ -1,0 +1,142 @@
+/* Subject Card Colors */
+.subject-card-1  { background-color: #ff6b6b; color: #fff; }
+.subject-card-2  { background-color: #ff922b; color: #000; }
+.subject-card-3  { background-color: #fcc419; color: #000; }
+.subject-card-4  { background-color: #94d82d; color: #000; }
+.subject-card-5  { background-color: #51cf66; color: #000; }
+.subject-card-6  { background-color: #20c997; color: #fff; }
+.subject-card-7  { background-color: #0ca678; color: #fff; }
+.subject-card-8  { background-color: #15aabf; color: #fff; }
+.subject-card-9  { background-color: #228be6; color: #fff; }
+.subject-card-10 { background-color: #5c7cfa; color: #fff; }
+.subject-card-11 { background-color: #7950f2; color: #fff; }
+.subject-card-12 { background-color: #ae3ec9; color: #fff; }
+.subject-card-13 { background-color: #d6336c; color: #fff; }
+.subject-card-14 { background-color: #e64980; color: #fff; }
+.subject-card-15 { background-color: #f783ac; color: #000; }
+.subject-card-16 { background-color: #ffa8a8; color: #000; }
+.subject-card-17 { background-color: #ffd43b; color: #000; }
+.subject-card-18 { background-color: #82c91e; color: #000; }
+.subject-card-19 { background-color: #40c057; color: #000; }
+.subject-card-20 { background-color: #099268; color: #fff; }
+.subject-card-21 { background-color: #1098ad; color: #fff; }
+.subject-card-22 { background-color: #339af0; color: #fff; }
+.subject-card-23 { background-color: #748ffc; color: #fff; }
+.subject-card-24 { background-color: #845ef7; color: #fff; }
+.subject-card-25 { background-color: #be4bdb; color: #fff; }
+.subject-card-26 { background-color: #f06595; color: #fff; }
+.subject-card-27 { background-color: #e64980; color: #fff; }
+.subject-card-28 { background-color: #ff8787; color: #000; }
+.subject-card-29 { background-color: #ffd8a8; color: #000; }
+.subject-card-30 { background-color: #b2f2bb; color: #000; }
+
+/* Subject Card */
+.subject-card {
+  min-width: 250px;
+  max-width: 400px;
+  flex: 0 0 auto;
+  margin-right: 15px;
+  border-radius: 12px;
+  /* padding: 15px; */
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+}
+
+.subject-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 15px rgba(0,0,0,0.2);
+}
+
+/* Wrapper */
+.recommended-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+/* Horizontal Scroll Row */
+.recommended-row {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 0;
+  width: 100%;
+  scrollbar-width: none; /* Firefox */
+}
+
+.recommended-row::-webkit-scrollbar {
+  display: none;  /* hide scrollbar for Chrome, Safari, Edge */
+}
+
+/* Scroll buttons */
+.btn-scroll {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.btn-scroll:hover {
+  opacity: 1;
+}
+
+.scroll-left {
+  left: -40px;
+}
+
+.scroll-right {
+  right: -40px;
+}
+
+/* More link styling */
+.more-link {
+  text-decoration: none;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.more-link:hover {
+  color: #0d6efd;
+}
+
+/* Carousel adjustments */
+.carousel-item {
+  padding: 0 15%;
+}
+
+@media (max-width: 768px) {
+  .carousel-item {
+    padding: 0 5%;
+  }
+  
+  .btn-scroll {
+    display: none; /* Hide scroll buttons on mobile */
+  }
+  
+  .subject-card {
+    min-width: 200px;
+    max-width: 200px;
+  }
+}
+
+
+.card-btn {
+  display: none; /* hidden by default */
+  position: absolute;
+  top: 40px;
+  right: 10px;
+}

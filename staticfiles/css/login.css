@@ -1,0 +1,36 @@
+.container{
+    margin-top: 5rem;
+    width: 27%;
+}
+
+.card {
+    box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+    /* height: 450px; */
+    overflow: hidden;
+
+}
+.card .card-header {
+    font-weight: 500;
+}
+.card-header:first-child {
+    border-radius: 0.35rem 0.35rem 0 0;
+}
+.card-header {
+    padding: 1rem;
+    font-size: 25px;
+    background-color: rgba(33, 40, 50, 0.03);
+    border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+}
+.form-control {
+    width: 100%;
+    padding: 0.875rem 1.125rem;
+    font-size: 0.875rem;
+    background-color: #fff;
+    border: 1px solid #c5ccd6;
+    border-radius: 0.35rem;
+}
+
+.form-submit{
+    display: flex;
+    justify-content: center;
+}

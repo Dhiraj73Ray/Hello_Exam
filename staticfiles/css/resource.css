@@ -1,0 +1,57 @@
+.folder-list .list-group-item {
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.folder-list .list-group-item:hover {
+  background-color: #eaeaea;
+}
+
+.folder-list .list-group-item.active {
+  background-color: #0d6efd;
+  color: white;
+  font-weight: 500;
+}
+
+.file-card {
+  transition: transform 0.2s ease-in-out;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+}
+
+.file-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.file-icon {
+  font-size: 2.5rem;
+}
+
+.folder-list li {
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.folder-list li:hover {
+  background: #f0f0f0;
+}
+.folder-list li.active {
+  background: #007bff;
+  color: white;
+}
+.folder-list li.active i {
+  color: white;
+}
+
+.doc-upload {
+  position: absolute;
+  right: 15px; /* stick to right of li */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.main-material{
+  overflow-y: auto;
+  height: 650px;
+}
