@@ -65,7 +65,7 @@ TEMPLATES = [
         # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'DIRS': [
             os.path.join(BASE_DIR, 'core/templates'),
-            os.path.join(BASE_DIR, 'question_answer/templates'),
+            # os.path.join(BASE_DIR, 'question_answer/templates'),
             os.path.join(BASE_DIR, 'students/templates'),
             os.path.join(BASE_DIR, 'subjects/templates'),
         ],
@@ -149,7 +149,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Additional locations of static files
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'core/static'),
-    os.path.join(BASE_DIR, 'question_answer/static'),
+    # os.path.join(BASE_DIR, 'question_answer/static'),
     os.path.join(BASE_DIR, 'students/static'),
     os.path.join(BASE_DIR, 'subjects/static'),
 ]
